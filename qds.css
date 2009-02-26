@@ -1,0 +1,87 @@
+body {
+	font-family: "Lucida Grande";
+	font-size: 12pt;
+}
+
+.date_field {
+    border: 1px dotted black;
+    padding: 0 5px;
+    cursor: pointer;
+}
+
+#chooser {
+    float: left;
+    position: absolute;
+}
+#chooser .selector {
+    float: left;
+    margin: 0px;
+}
+#chooser ul {
+    list-style-type: none;
+    text-align: center;
+    padding: 0px;
+    width: 70px;
+}
+#chooser li {
+    cursor: default;
+}
+#chooser a {
+    display: block;
+    text-decoration: underline;
+    cursor: pointer;
+}
+
+#months, #days {
+	position: relative;
+}
+#days .title {
+    text-align: center;
+}
+#days .weekdays span, #days .wk span {
+    float: left;
+    width: 28px;
+    height: 28px;
+    padding: 0px;
+    text-align: center;
+}
+#days .wk {
+	clear: both;
+}
+#days .wk a {
+	height: 28px;
+}
+
+/* Colors... (Feel free to change these) */
+
+#chooser {
+    color: #C0C0C0;
+}
+#years.selector {
+    background-color: #003366;
+}
+#years.selector .sel {
+    background-color: #000044;
+}
+#months.selector {
+    background-color: #000044;
+}
+#months.selector .sel {
+	background-color: #6699CC
+}
+#days.selector {
+	background-color: #6699CC;
+}
+#days.selector .sel {
+    background-color: #003366;
+}
+#days .header {
+    color: #000000;
+}
+#days {
+    color: #003366;
+}
+#days a.sel {
+    color: #C0C0C0;
+}
+
