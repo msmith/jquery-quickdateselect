@@ -1,4 +1,4 @@
-jQuery.fn.quick_date_select = function() {
+jQuery.fn.QuickDateSelect = function() {
   return this.each(function(){
     $(this).addClass('date_field')
     jQuery.QuickDateSelect.activate(this);
