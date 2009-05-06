@@ -12,97 +12,87 @@ jQuery.fn.QuickDateSelect = function() {
  */
 jQuery.QuickDateSelect = {
   activate: function(date_field) {
-
-    createChooser();
-
+    
+    var chooser = createChooser();
+    
     $(date_field).bind('click', function(e) {
       showChooser(e.pageX, e.pageY);
     });
 
-    $("#chooser").bind('mouseleave', function (e) {
+    $(chooser).bind('mouseleave', function (e) {
         hideChooser();
     });
     
-    $("#years li").bind('mouseenter', function (e) {
+    $(chooser).find(".years li").bind('mouseenter', function (e) {
         $(this).addClass('sel').siblings().removeClass('sel');
         setYear($(this).text());
     });
   
-    $("#months li").bind('mouseenter', function (e) {
+    $(chooser).find(".months li").bind('mouseenter', function (e) {
         $(this).addClass('sel').siblings().removeClass('sel');
         setMonth($(this).text());
     });
 
-    function addMonthIndexes() {
-        $("#months li");
-    }
-
-    
     function createChooser() {
       $(date_field).after(buildChooser());
-      $('#years, #days, #months').hide();
+      var chooser = $(date_field).next();
+      chooser.find('.years, .days, .months').hide()
+      return chooser
     }
     
     // make the chooser visible
     function showChooser(x, y) {
-      var left = x - ($('#years').width() / 2);
+      var years = $(chooser).find('.years')
+
+      var left = x - (years.width() / 2);
       if (left < 0) left = 0;
       
-      var top = y - ($('#years').height() / 2);
+      var top = y - (years.height() / 2);
       if (top < 0) top = 0;
-      // var top = alignToCursor($('#years'), 12, y, 2008-2003+1)
       
-      $("#chooser").css('top', top).css('left', left);
+      $(chooser).css('top', top).css('left', left);
       
-      $("#years").show();
+      $(chooser).find(".years").show();
     }
     
-    // function alignToCursor(e, itemsInE, cursorY, index) {
-    //   return cursorY - (e.height()/itemsInE)*(index+0.5)
-    // };
-    
     function hideChooser() {
-      $('#chooser .sel').removeClass('sel');
-      $('#years, #months, #days').hide();
+      $(chooser).find('.sel').removeClass('sel');
+      $(chooser).find('.years, .months, .days').hide();
     }
   
     function setYear(year) {
-      $('#months').show();
+      $(chooser).find('.months').show();
       setMonth(0);
     };
   
     function setMonth(month) {
       if (month === 0) {
-        $('#months .sel').removeClass('sel');
-        $('#days').hide();
+        $(chooser).find('.months .sel').removeClass('sel');
+        $(chooser).find('.days').hide();
       } else {
-        $('#days').show();
+        $(chooser).find('.days').show();
         updateCal();
       }
     }
   
-    function setDay() {
-    }
-  
     function updateCal() {
-      var year = $('#years .sel').text();
-      var month = $('#months .sel').attr("month");
+      var year = $(chooser).find('.years .sel').text();
+      var month = $(chooser).find('.months .sel').attr("month");
       if (year > 0 && month > 0) {
-        $('#days .title').text(getTitle(year, month));
-        buildCal(year, month);
-        var mh = $('#months').height();
-        var dh = $('#days').height();
+        $(chooser).find('.days .title').text(getTitle(year, month));
+        $(chooser).find('.days .body').html(buildCal(year, month))
+        var mh = $(chooser).find('.months').height();
+        var dh = $(chooser).find('.days').height();
         var space = (mh-dh)/11;
         var top = (space*(month-1));
         if (top < 0) top = 0;
-        $('#days').css('top', top);
+        $(chooser).find('.days').css('top', top);
   
-        $('#days a')
+        $(chooser).find('.days a')
           .bind('mouseenter', function (e) {
             var day = $(this).text();
-            $('#days a.sel').removeClass('sel'); // can't use siblings trick here
+            $(chooser).find('.days a.sel').removeClass('sel'); // can't use siblings trick here
             $(this).addClass('sel');
-            setDay(day);
           })
           .bind('click', function(e) {
             var day = $(this).text();
@@ -113,19 +103,20 @@ jQuery.QuickDateSelect = {
     }
     
     function updateDateField(year, month, day) {
-      $(date_field).text(getTitle(year, month, day));
+      $(date_field).text(dateToString(new Date(year, month, day)));
+    }
+
+    function parseDateField() {
+      return stringToDate($(date_field).text());
     }
 
     function monthName(month) {
-        var MONTHS = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sept', 'Oct', 'Nov', 'Dec'];
-        return MONTHS[month-1];
+      var MONTHS = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sept', 'Oct', 'Nov', 'Dec'];
+      return MONTHS[month-1];
     }
   
     function getTitle(year, month, day) {
-      if (day > 0)
-        return monthName(month) + " " + day + ", " + year;
-      else
-        return monthName(month) + " " + year;
+      return monthName(month) + " " + year;
     }
   
     function daysInMonth(year, month) {
@@ -136,22 +127,21 @@ jQuery.QuickDateSelect = {
     function startOfMonth(year, month) {
       return new Date(year, month-1).getDay();
     }
-  
     
     // build the outer markup for the chooser
     function buildChooser() {
-      var html = '<div id="chooser">'
+      var html = '<div class="chooser">'
       html += buildYears();
       html += buildMonths();
       html += buildDays();
       html += '</div>';
       return html;
     }
-
+    
     // build the year selector
     function buildYears() {
-      var html = '<ul id="years" class="selector">';
-      var thisYear = new Date().getYear()+1900;
+      var html = '<ul class="years selector">';
+      var thisYear = parseDateField().getFullYear();
       var startYear = thisYear - 6;
       var endYear = thisYear + 5;
       for (var i=startYear; i <= endYear; i++) {
@@ -165,7 +155,7 @@ jQuery.QuickDateSelect = {
     
     // build the month selector
     function buildMonths() {
-      var html = '<ul id="months" class="selector">';
+      var html = '<ul class="months selector">';
       for (var i=1; i <= 12; i++) {
           html += '<li month="' + i + '">';
           html += monthName(i);
@@ -177,7 +167,7 @@ jQuery.QuickDateSelect = {
     
     // build the day selector
     function buildDays() {
-      var html = '<div id="days" class="selector"><div class="header title">[title]</div><div class="header weekdays">'
+      var html = '<div class="days selector"><div class="header title">[title]</div><div class="header weekdays">'
       var WEEKDAYS = ['S','M','T','W','T','F','S']
       for (var i=0; i < WEEKDAYS.length; i++) {
         html += '<span>'
@@ -191,24 +181,34 @@ jQuery.QuickDateSelect = {
 
     // build the inner markup for the calender
     function buildCal(y, m) {
-      var s = '<div class="wk">'
+      var html = '<div class="wk">'
       var days = daysInMonth(y, m)
       var pad = startOfMonth(y,m)
       for (var i=0; i < pad; i++) {
-        s += '<span></span> '
+        html += '<span></span> '
       }
       for (var i=1; i <= days; i++) {
-        s += '<span><a>' + i + '</a></span> '
+        html += '<span><a>' + i + '</a></span> '
         if ((pad + i) % 7 == 0) {
-          s += '</div><div class="wk">'
+          html += '</div><div class="wk">'
         }
   
       }
       for (; ((pad + i) % 7 != 1); i++) {
-        s += '<span></span>'
+        html += '<span></span>'
       }
-      s += '</div>'
-      $('#days .body').html(s)
+      html += '</div>'
+      return html
+    }
+    
+    function dateToString(date) {
+      return date.getMonth() + "/" + date.getDate() + "/" + date.getFullYear();
+    }
+
+    function stringToDate(str) {
+      var pattern = /(\d+)\/(\d+)\/(\d+)/;
+      var arr = str.match(pattern);
+      return new Date(arr[3], arr[1], arr[2]);
     }
 
   }

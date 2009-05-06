@@ -9,79 +9,79 @@ body {
     cursor: pointer;
 }
 
-#chooser {
+.chooser {
     float: left;
     position: absolute;
 }
-#chooser .selector {
+.chooser .selector {
     float: left;
     margin: 0px;
 }
-#chooser ul {
+.chooser ul {
     list-style-type: none;
     text-align: center;
     padding: 0px;
     width: 70px;
 }
-#chooser li {
+.chooser li {
     cursor: default;
 }
-#chooser a {
+.chooser a {
     display: block;
     text-decoration: underline;
     cursor: pointer;
 }
 
-#months, #days {
+.months, .days {
 	position: relative;
 }
-#days .title {
+.days .title {
     text-align: center;
 }
-#days .weekdays span, #days .wk span {
+.days .weekdays span, .days .wk span {
     float: left;
     width: 28px;
     height: 28px;
     padding: 0px;
     text-align: center;
 }
-#days .wk {
+.days .wk {
 	clear: both;
 }
-#days .wk a {
+.days .wk a {
 	height: 28px;
 }
 
 /* Colors... (Feel free to change these) */
 
-#chooser {
+.chooser {
     color: #C0C0C0;
 }
-#years.selector {
+.years.selector {
     background-color: #003366;
 }
-#years.selector .sel {
+.years.selector .sel {
     background-color: #000044;
 }
-#months.selector {
+.months.selector {
     background-color: #000044;
 }
-#months.selector .sel {
+.months.selector .sel {
 	background-color: #6699CC
 }
-#days.selector {
+.days.selector {
 	background-color: #6699CC;
 }
-#days.selector .sel {
+.days.selector .sel {
     background-color: #003366;
 }
-#days .header {
+.days .header {
     color: #000000;
 }
-#days {
+.days {
     color: #003366;
 }
-#days a.sel {
+.days a.sel {
     color: #C0C0C0;
 }
 
