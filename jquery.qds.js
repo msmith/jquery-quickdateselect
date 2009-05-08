@@ -8,7 +8,7 @@ jQuery.fn.QuickDateSelect = function() {
 /**
  * @constructor
  * @name jQuery.QuickDateSelect
- * @param date_field the <span> element to create the date select for.
+ * @param date_field the <input> field
  */
 jQuery.QuickDateSelect = {
   activate: function(date_field) {
@@ -109,11 +109,11 @@ jQuery.QuickDateSelect = {
     }
     
     function updateDateField(year, month, day) {
-      $(date_field).text(dateToString(new Date(year, month, day)));
+      $(date_field).attr("value", dateToString(new Date(year, month, day)));
     }
 
     function parseDateField() {
-      return stringToDate($(date_field).text());
+      return stringToDate($(date_field).attr("value"));
     }
 
     function monthName(month) {
@@ -181,7 +181,7 @@ jQuery.QuickDateSelect = {
         html += '</span>'
       }
       // div.body will be filled with buildCal() contents
-      html +=	'</div><div class="body">[cal]</div></div>'
+      html +=	'</div><div class="body">[calendar]</div></div>'
       return html
     }
 
@@ -214,7 +214,7 @@ jQuery.QuickDateSelect = {
     function stringToDate(str) {
       var pattern = /(\d+)\/(\d+)\/(\d+)/;
       var arr = str.match(pattern);
-      return new Date(arr[3]-1, arr[1], arr[2]);
+      return (arr == null) ? new Date() : new Date(arr[3]-1, arr[1], arr[2]);
     }
 
   }
