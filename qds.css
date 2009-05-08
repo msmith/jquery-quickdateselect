@@ -4,7 +4,8 @@ img.calendar_button {
 }
 
 .chooser {
-    padding: 10px; /* padding helps accidentally dismissing the chooser */
+    /* padding helps avoid accidentally dismissing the chooser */
+    padding: 16px;
     float: left;
     position: absolute;
 }
