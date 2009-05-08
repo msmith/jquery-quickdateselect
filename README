@@ -1,3 +1,30 @@
 jQuery QuickDateSelect
 
-A quick date picker
+A quick date picker.
+
+
+=== The demo ===
+
+http://sticknet.net/jquery.qds/
+
+
+=== To use it ===
+
+Take your date field:
+
+    <input id="date1" value="2/14/2009"></input>
+
+...and call QuickDateSelect on it:
+
+    <script type="text/javascript" src="jquery.qds.js"></script>
+    <script type="text/javascript">
+    	$(document).ready(function() {
+    		$('#date1').QuickDateSelect();
+    	});
+    </script>
+    <link rel="stylesheet" type="text/css" href="qds.css"></link>
+
+
+=== Credits ===
+
+256 pixels of icon provided by http://www.pinvoke.com/
