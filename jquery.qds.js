@@ -13,9 +13,10 @@ jQuery.fn.QuickDateSelect = function() {
 jQuery.QuickDateSelect = {
   activate: function(date_field) {
     
+    var button = createButton();
     var chooser = createChooser();
     
-    $(date_field).bind('click', function(e) {
+    $(button).bind('click', function(e) {
       showChooser(e.pageX, e.pageY);
     });
 
@@ -32,6 +33,11 @@ jQuery.QuickDateSelect = {
         $(this).addClass('sel').siblings().removeClass('sel');
         setMonth($(this).text());
     });
+    
+    function createButton() {
+      $(date_field).after("<img class='calendar_button' src='calendar-day.png'></img>");
+      return $(date_field).next();
+    }
 
     function createChooser() {
       $(date_field).after(buildChooser());

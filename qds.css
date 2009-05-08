@@ -1,15 +1,10 @@
-body {
-	font-family: "Lucida Grande";
-	font-size: 12pt;
-}
-
-.date_field {
-    border: 1px dotted black;
-    padding: 0 5px;
+img.calendar_button {
+    padding-left: 2px;
     cursor: pointer;
 }
 
 .chooser {
+    padding: 10px; /* padding helps accidentally dismissing the chooser */
     float: left;
     position: absolute;
 }
@@ -33,7 +28,7 @@ body {
 }
 
 .months, .days {
-	position: relative;
+    position: relative;
 }
 .days .title {
     text-align: center;
@@ -46,10 +41,10 @@ body {
     text-align: center;
 }
 .days .wk {
-	clear: both;
+    clear: both;
 }
 .days .wk a {
-	height: 28px;
+    height: 28px;
 }
 
 /* Colors... (Feel free to change these) */
@@ -67,10 +62,10 @@ body {
     background-color: #000044;
 }
 .months.selector .sel {
-	background-color: #6699CC
+    background-color: #6699CC
 }
 .days.selector {
-	background-color: #6699CC;
+    background-color: #6699CC;
 }
 .days.selector .sel {
     background-color: #003366;
