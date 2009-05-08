@@ -62,11 +62,11 @@ jQuery.QuickDateSelect = {
   
     function setYear(year) {
       $(chooser).find('.months').show();
-      setMonth(0);
+      setMonth(-1);
     };
   
     function setMonth(month) {
-      if (month === 0) {
+      if (month === -1) {
         $(chooser).find('.months .sel').removeClass('sel');
         $(chooser).find('.days').hide();
       } else {
@@ -78,13 +78,13 @@ jQuery.QuickDateSelect = {
     function updateCal() {
       var year = $(chooser).find('.years .sel').text();
       var month = $(chooser).find('.months .sel').attr("month");
-      if (year > 0 && month > 0) {
+      if (year >= 0 && month >= 0) {
         $(chooser).find('.days .title').text(getTitle(year, month));
         $(chooser).find('.days .body').html(buildCal(year, month))
         var mh = $(chooser).find('.months').height();
         var dh = $(chooser).find('.days').height();
         var space = (mh-dh)/11;
-        var top = (space*(month-1));
+        var top = (space*(month));
         if (top < 0) top = 0;
         $(chooser).find('.days').css('top', top);
   
@@ -112,7 +112,7 @@ jQuery.QuickDateSelect = {
 
     function monthName(month) {
       var MONTHS = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sept', 'Oct', 'Nov', 'Dec'];
-      return MONTHS[month-1];
+      return MONTHS[month];
     }
   
     function getTitle(year, month, day) {
@@ -120,12 +120,12 @@ jQuery.QuickDateSelect = {
     }
   
     function daysInMonth(year, month) {
-      return 32 - new Date(year, month-1, 32).getDate();
+      return 32 - new Date(year, month, 32).getDate();
     }
   
     // 0 = Sun, 1 = Mon ... 6 = Sat
     function startOfMonth(year, month) {
-      return new Date(year, month-1).getDay();
+      return new Date(year, month).getDay();
     }
     
     // build the outer markup for the chooser
@@ -156,7 +156,7 @@ jQuery.QuickDateSelect = {
     // build the month selector
     function buildMonths() {
       var html = '<ul class="months selector">';
-      for (var i=1; i <= 12; i++) {
+      for (var i=0; i < 12; i++) {
           html += '<li month="' + i + '">';
           html += monthName(i);
           html += '</li>';
@@ -202,13 +202,13 @@ jQuery.QuickDateSelect = {
     }
     
     function dateToString(date) {
-      return date.getMonth() + "/" + date.getDate() + "/" + date.getFullYear();
+      return date.getMonth()+1 + "/" + date.getDate() + "/" + date.getFullYear();
     }
 
     function stringToDate(str) {
       var pattern = /(\d+)\/(\d+)\/(\d+)/;
       var arr = str.match(pattern);
-      return new Date(arr[3], arr[1], arr[2]);
+      return new Date(arr[3]-1, arr[1], arr[2]);
     }
 
   }
