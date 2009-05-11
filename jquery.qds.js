@@ -1,6 +1,5 @@
 jQuery.fn.QuickDateSelect = function() {
   return this.each(function(){
-    $(this).addClass('date_field');
     jQuery.QuickDateSelect.activate(this);
   });
 };
@@ -13,6 +12,9 @@ jQuery.fn.QuickDateSelect = function() {
 jQuery.QuickDateSelect = {
   activate: function(date_field) {
     
+    var WEEKDAYS = ['S','M','T','W','T','F','S'];
+    var MONTHS   = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sept', 'Oct', 'Nov', 'Dec'];
+
     var button = createButton();
     var chooser = createChooser();
     
@@ -83,21 +85,26 @@ jQuery.QuickDateSelect = {
   
     function updateCal() {
       var year = $(chooser).find('.years .sel').text();
-      var month = $(chooser).find('.months .sel').attr("month");
-      if (year >= 0 && month >= 0) {
-        $(chooser).find('.days .title').text(getTitle(year, month));
-        $(chooser).find('.days .body').html(buildCal(year, month))
+      var month = $(chooser).find('.months .sel').attr('month');
+
+      if (month != -1) {
+        var cal = $(chooser).find('.days');
+        
+        // update contents
+        $(cal).find('.title').text(getTitle(year, month));
+        $(cal).find('.body').html(buildCal(year, month));
+
+        // adjust position
         var mh = $(chooser).find('.months').height();
         var dh = $(chooser).find('.days').height();
         var space = (mh-dh)/11;
-        var top = (space*(month));
-        if (top < 0) top = 0;
-        $(chooser).find('.days').css('top', top);
+        var top = space * month;
+        $(cal).css('top', top);
   
-        $(chooser).find('.days a')
+        $(cal).find('a')
           .bind('mouseenter', function (e) {
             var day = $(this).text();
-            $(chooser).find('.days a.sel').removeClass('sel'); // can't use siblings trick here
+            $(cal).find('a.sel').removeClass('sel'); // can't use siblings trick here
             $(this).addClass('sel');
           })
           .bind('click', function(e) {
@@ -115,14 +122,10 @@ jQuery.QuickDateSelect = {
     function parseDateField() {
       return stringToDate($(date_field).attr("value"));
     }
-
-    function monthName(month) {
-      var MONTHS = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sept', 'Oct', 'Nov', 'Dec'];
-      return MONTHS[month];
-    }
   
+    // calendar title
     function getTitle(year, month, day) {
-      return monthName(month) + " " + year;
+      return MONTHS[month] + " " + year;
     }
   
     function daysInMonth(year, month) {
@@ -164,7 +167,7 @@ jQuery.QuickDateSelect = {
       var html = '<ul class="months selector">';
       for (var i=0; i < 12; i++) {
           html += '<li month="' + i + '">';
-          html += monthName(i);
+          html += MONTHS[i];
           html += '</li>';
       }
       html += '</ul>';
@@ -173,19 +176,18 @@ jQuery.QuickDateSelect = {
     
     // build the day selector
     function buildDays() {
-      var html = '<div class="days selector"><div class="header title">[title]</div><div class="header weekdays">'
-      var WEEKDAYS = ['S','M','T','W','T','F','S']
+      var html = '<div class="days selector"><div class="header title">[title]</div><div class="header weekdays">';
       for (var i=0; i < WEEKDAYS.length; i++) {
-        html += '<span>'
-        html += WEEKDAYS[i]
-        html += '</span>'
+        html += '<span>';
+        html += WEEKDAYS[i];
+        html += '</span>';
       }
       // div.body will be filled with buildCal() contents
-      html +=	'</div><div class="body">[calendar]</div></div>'
+      html +=	'</div><div class="body">[calendar]</div></div>';
       return html
     }
 
-    // build the inner markup for the calender
+    // build the inner markup for the calendar
     function buildCal(y, m) {
       var html = '<div class="wk">'
       var days = daysInMonth(y, m)
@@ -198,7 +200,6 @@ jQuery.QuickDateSelect = {
         if ((pad + i) % 7 == 0) {
           html += '</div><div class="wk">'
         }
-  
       }
       for (; ((pad + i) % 7 != 1); i++) {
         html += '<span></span>'
