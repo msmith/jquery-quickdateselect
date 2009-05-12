@@ -58,15 +58,21 @@ img.calendar_button {
 }
 .years.selector .sel {
     background-color: #000044;
+    -moz-border-radius: 6px 0px 0px 6px;
+    -webkit-border-radius: 6px 0px 0px 6px;
 }
 .months.selector {
     background-color: #000044;
 }
 .months.selector .sel {
-    background-color: #6699CC
+    background-color: #6699CC;
+    -moz-border-radius: 6px 0px 0px 6px;
+    -webkit-border-radius: 6px 0px 0px 6px;
 }
 .days.selector {
     background-color: #6699CC;
+    -moz-border-radius: 0px 6px 6px 0px;
+    -webkit-border-radius: 0px 6px 6px 0px;
 }
 .days.selector .sel {
     background-color: #003366;
