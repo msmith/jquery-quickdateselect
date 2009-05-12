@@ -206,7 +206,7 @@ jQuery.QuickDateSelect = {
     function stringToDate(str) {
       var pattern = /(\d+)\/(\d+)\/(\d+)/;
       var arr = str.match(pattern);
-      return (arr == null) ? new Date() : new Date(arr[3]-1, arr[1], arr[2]);
+      return (arr == null) ? new Date() : new Date(arr[3], arr[1]-1, arr[2]);
     }
 
   }
