@@ -34,7 +34,7 @@ img.calendar_button {
 .days .title {
     text-align: center;
 }
-.days .weekdays span, .days .wk span {
+.days .weekdays span, .days .wk span, .days .wk a {
     float: left;
     width: 28px;
     height: 28px;

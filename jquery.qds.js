@@ -15,8 +15,11 @@ jQuery.QuickDateSelect = {
     var WEEKDAYS = ['S','M','T','W','T','F','S'];
     var MONTHS   = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sept', 'Oct', 'Nov', 'Dec'];
 
-    var button = createButton();
+    var button  = createButton();
     var chooser = createChooser();
+    var years   = $(chooser).find('.years');
+    var months  = $(chooser).find('.months');
+    var days    = $(chooser).find('.days');
     
     $(button).bind('click', function(e) {
       showChooser(e.pageX, e.pageY);
@@ -26,12 +29,12 @@ jQuery.QuickDateSelect = {
         hideChooser();
     });
     
-    $(chooser).find(".years li").bind('mouseenter', function (e) {
+    $(years).children("li").bind('mouseenter', function (e) {
         $(this).addClass('sel').siblings().removeClass('sel');
         setYear($(this).text());
     });
   
-    $(chooser).find(".months li").bind('mouseenter', function (e) {
+    $(months).children("li").bind('mouseenter', function (e) {
         $(this).addClass('sel').siblings().removeClass('sel');
         setMonth($(this).text());
     });
@@ -49,8 +52,6 @@ jQuery.QuickDateSelect = {
     
     // make the chooser visible
     function showChooser(x, y) {
-      var years = $(chooser).find('.years')
-
       var left = x - (years.width() / 2);
       if (left < 0) left = 0;
       
@@ -59,51 +60,49 @@ jQuery.QuickDateSelect = {
       
       $(chooser).css('top', top).css('left', left);
       
-      $(chooser).find(".years").show();
+      $(years).show();
     }
     
     function hideChooser() {
       $(chooser).find('.sel').removeClass('sel');
-      $(chooser).find('.years, .months, .days').hide();
+      $(chooser).find('.selector').hide();
     }
   
     function setYear(year) {
-      $(chooser).find('.months').show();
+      $(months).show();
       setMonth(-1);
     };
   
     function setMonth(month) {
       if (month === -1) {
-        $(chooser).find('.months .sel').removeClass('sel');
-        $(chooser).find('.days').hide();
+        $(months).find('.sel').removeClass('sel');
+        $(days).hide();
       } else {
-        $(chooser).find('.days').show();
+        $(days).show();
         updateCal();
       }
     }
   
     function updateCal() {
-      var year = $(chooser).find('.years .sel').text();
-      var month = $(chooser).find('.months .sel').attr('month');
+      var year = $(years).find('.sel').text();
+      var month = $(months).find('.sel').attr('month');
 
       if (month != -1) {
-        var cal = $(chooser).find('.days');
-        
         // update contents
-        $(cal).find('.title').text(getTitle(year, month));
-        $(cal).find('.body').html(buildCal(year, month));
+        $(days).find('.title').text(getTitle(year, month));
+        $(days).find('.body').html(buildCal(year, month));
 
         // adjust position
-        var mh = $(chooser).find('.months').height();
-        var dh = $(chooser).find('.days').height();
+        var mh = $(months).height();
+        var dh = $(days).height();
         var space = (mh-dh)/11;
         var top = space * month;
-        $(cal).css('top', top);
+        $(days).css('top', top);
   
-        $(cal).find('a')
+        $(days).find('a')
           .bind('mouseenter', function (e) {
             var day = $(this).text();
-            $(cal).find('a.sel').removeClass('sel'); // can't use siblings trick here
+            $(days).find('a.sel').removeClass('sel'); // can't use siblings trick here
             $(this).addClass('sel');
           })
           .bind('click', function(e) {
@@ -196,13 +195,10 @@ jQuery.QuickDateSelect = {
         html += '<span></span> '
       }
       for (var i=1; i <= days; i++) {
-        html += '<span><a>' + i + '</a></span> '
+        html += '<a>' + i + '</a> '
         if ((pad + i) % 7 == 0) {
           html += '</div><div class="wk">'
         }
-      }
-      for (; ((pad + i) % 7 != 1); i++) {
-        html += '<span></span>'
       }
       html += '</div>'
       return html
