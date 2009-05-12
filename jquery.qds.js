@@ -36,7 +36,9 @@ jQuery.QuickDateSelect = {
   
     $(months).children("li").bind('mouseenter', function (e) {
         $(this).addClass('sel').siblings().removeClass('sel');
-        setMonth($(this).text());
+        var year = $(years).find('.sel').text();
+        var month = $(this).attr('month');
+        setMonth(year, month);
     });
     
     function createButton() {
@@ -70,23 +72,21 @@ jQuery.QuickDateSelect = {
   
     function setYear(year) {
       $(months).show();
-      setMonth(-1);
+      setMonth(year, -1);
     };
   
-    function setMonth(month) {
+    function setMonth(year, month) {
       if (month === -1) {
         $(months).find('.sel').removeClass('sel');
         $(days).hide();
       } else {
         $(days).show();
-        updateCal();
+        updateCal(year, month);
       }
     }
-  
-    function updateCal() {
-      var year = $(years).find('.sel').text();
-      var month = $(months).find('.sel').attr('month');
-
+    
+    // update calendar body
+    function updateCal(year, month) {
       if (month != -1) {
         // update contents
         $(days).find('.title').text(getTitle(year, month));
@@ -144,8 +144,8 @@ jQuery.QuickDateSelect = {
     function buildYears() {
       var html = '<ul class="years selector" style="display:none">';
       var thisYear = parseDateField().getFullYear();
-      var startYear = thisYear - 6;
-      var endYear = thisYear + 5;
+      var startYear = thisYear - 5;
+      var endYear = thisYear + 6;
       for (var i=startYear; i <= endYear; i++) {
           html += '<li>';
           html += i;
