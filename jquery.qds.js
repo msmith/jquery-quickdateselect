@@ -100,11 +100,6 @@ jQuery.QuickDateSelect = {
         $(days).css('top', top);
   
         $(days).find('a')
-          .bind('mouseenter', function (e) {
-            var day = $(this).text();
-            $(days).find('a.sel').removeClass('sel'); // can't use siblings trick here
-            $(this).addClass('sel');
-          })
           .bind('click', function(e) {
             var day = $(this).text();
             updateDateField(year, month, day);
@@ -195,7 +190,7 @@ jQuery.QuickDateSelect = {
         html += '<span></span> '
       }
       for (var i=1; i <= days; i++) {
-        html += '<a>' + i + '</a> '
+        html += '<a href="#">' + i + '</a>'
         if ((pad + i) % 7 == 0) {
           html += '</div><div class="wk">'
         }

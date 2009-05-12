@@ -74,16 +74,13 @@ img.calendar_button {
     -moz-border-radius: 0px 6px 6px 0px;
     -webkit-border-radius: 0px 6px 6px 0px;
 }
-.days.selector .sel {
-    background-color: #003366;
-}
-.days .header {
-    color: #000000;
-}
-.days {
+.days.selector a {
     color: #003366;
 }
-.days a.sel {
+.days.selector a:hover {
     color: #C0C0C0;
+    background-color: #003366;
 }
-
+.days.selector .header {
+    color: #000000;
+}
