@@ -44,7 +44,6 @@ jQuery.QuickDateSelect = {
     function createChooser() {
       $(date_field).after(buildChooser());
       var chooser = $(date_field).next();
-      chooser.find('.years, .days, .months').hide()
       return chooser
     }
     
@@ -149,7 +148,7 @@ jQuery.QuickDateSelect = {
     
     // build the year selector
     function buildYears() {
-      var html = '<ul class="years selector">';
+      var html = '<ul class="years selector" style="display:none">';
       var thisYear = parseDateField().getFullYear();
       var startYear = thisYear - 6;
       var endYear = thisYear + 5;
@@ -164,7 +163,7 @@ jQuery.QuickDateSelect = {
     
     // build the month selector
     function buildMonths() {
-      var html = '<ul class="months selector">';
+      var html = '<ul class="months selector" style="display:none">';
       for (var i=0; i < 12; i++) {
           html += '<li month="' + i + '">';
           html += MONTHS[i];
@@ -176,7 +175,8 @@ jQuery.QuickDateSelect = {
     
     // build the day selector
     function buildDays() {
-      var html = '<div class="days selector"><div class="header title">[title]</div><div class="header weekdays">';
+      var html = '<div class="days selector" style="display:none">'
+      html += '<div class="header title">[title]</div><div class="header weekdays">';
       for (var i=0; i < WEEKDAYS.length; i++) {
         html += '<span>';
         html += WEEKDAYS[i];
