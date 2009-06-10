@@ -1,3 +1,10 @@
+/* jQuery QuickDateSelect
+ *
+ * http://github.com/msmith/jquery-quickdateselect
+ *
+ * Copyright (C) 2009 Mike Smith
+ * Distributed under the MIT License
+ */
 jQuery.fn.QuickDateSelect = function() {
   return this.each(function(){
     jQuery.QuickDateSelect.activate(this);
@@ -40,7 +47,7 @@ jQuery.QuickDateSelect = {
         var month = $(this).attr('month');
         setMonth(year, month);
     });
-    
+
     function createButton() {
       $(date_field).after("<img class='calendar_button' src='calendar-day.png'></img>");
       return $(date_field).next();
@@ -49,7 +56,7 @@ jQuery.QuickDateSelect = {
     function createChooser() {
       $(date_field).after(buildChooser());
       var chooser = $(date_field).next();
-      return chooser
+      return chooser;
     }
     
     // make the chooser visible
@@ -99,8 +106,7 @@ jQuery.QuickDateSelect = {
         var top = space * month;
         $(days).css('top', top);
   
-        $(days).find('a')
-          .bind('click', function(e) {
+        $(days).find('a').bind('click', function(e) {
             var day = $(this).text();
             updateDateField(year, month, day);
             hideChooser();
@@ -132,7 +138,7 @@ jQuery.QuickDateSelect = {
     
     // build the outer markup for the chooser
     function buildChooser() {
-      var html = '<div class="chooser">'
+      var html = '<div class="chooser">';
       html += buildYears();
       html += buildMonths();
       html += buildDays();
@@ -169,7 +175,7 @@ jQuery.QuickDateSelect = {
     
     // build the day selector
     function buildDays() {
-      var html = '<div class="days selector" style="display:none">'
+      var html = '<div class="days selector" style="display:none">';
       html += '<div class="header title">[title]</div><div class="header weekdays">';
       for (var i=0; i < WEEKDAYS.length; i++) {
         html += '<span>';
@@ -178,25 +184,25 @@ jQuery.QuickDateSelect = {
       }
       // div.body will be filled with buildCal() contents
       html +=	'</div><div class="body">[calendar]</div></div>';
-      return html
+      return html;
     }
 
     // build the inner markup for the calendar
     function buildCal(y, m) {
-      var html = '<div class="wk">'
-      var days = daysInMonth(y, m)
-      var pad = startOfMonth(y,m)
+      var html = '<div class="wk">';
+      var days = daysInMonth(y, m);
+      var pad = startOfMonth(y,m);
       for (var i=0; i < pad; i++) {
-        html += '<span></span> '
+        html += '<span></span> ';
       }
       for (var i=1; i <= days; i++) {
-        html += '<a href="#">' + i + '</a>'
+        html += '<a href="#">' + i + '</a>';
         if ((pad + i) % 7 == 0) {
-          html += '</div><div class="wk">'
+          html += '</div><div class="wk">';
         }
       }
-      html += '</div>'
-      return html
+      html += '</div>';
+      return html;
     }
     
     function dateToString(date) {
@@ -208,6 +214,6 @@ jQuery.QuickDateSelect = {
       var arr = str.match(pattern);
       return (arr == null) ? new Date() : new Date(arr[3], arr[1]-1, arr[2]);
     }
-
+    
   }
-}
+};
