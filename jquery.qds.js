@@ -33,19 +33,19 @@ jQuery.QuickDateSelect = {
     });
 
     $(chooser).bind('mouseleave', function (e) {
-        hideChooser();
+      hideChooser();
     });
     
     $(years).children("li").bind('mouseenter', function (e) {
-        $(this).addClass('sel').siblings().removeClass('sel');
-        setYear($(this).text());
+      $(this).addClass('sel').siblings().removeClass('sel');
+      setYear($(this).text());
     });
-  
+
     $(months).children("li").bind('mouseenter', function (e) {
-        $(this).addClass('sel').siblings().removeClass('sel');
-        var year = $(years).find('.sel').text();
-        var month = $(this).attr('month');
-        setMonth(year, month);
+      $(this).addClass('sel').siblings().removeClass('sel');
+      var year = $(years).find('.sel').text();
+      var month = $(this).attr('month');
+      setMonth(year, month);
     });
 
     function createButton() {
@@ -138,71 +138,73 @@ jQuery.QuickDateSelect = {
     
     // build the outer markup for the chooser
     function buildChooser() {
-      var html = '<div class="chooser">';
-      html += buildYears();
-      html += buildMonths();
-      html += buildDays();
-      html += '</div>';
-      return html;
+      var html = ['<div class="chooser">'];
+      html.push(buildYears());
+      html.push(buildMonths());
+      html.push(buildDays());
+      html.push('</div>');
+      return html.join('');
     }
     
     // build the year selector
     function buildYears() {
-      var html = '<ul class="years selector" style="display:none">';
+      var html = ['<ul class="years selector" style="display:none">'];
       var thisYear = parseDateField().getFullYear();
       var startYear = thisYear - 5;
       var endYear = thisYear + 6;
       for (var i=startYear; i <= endYear; i++) {
-          html += '<li>';
-          html += i;
-          html += '</li>';
+          html.push('<li>');
+          html.push(i);
+          html.push('</li>');
       }
-      html += '</ul>';
-      return html;
+      html.push('</ul>');
+      return html.join('');
     }
     
     // build the month selector
     function buildMonths() {
-      var html = '<ul class="months selector" style="display:none">';
+      var html = ['<ul class="months selector" style="display:none">'];
       for (var i=0; i < 12; i++) {
-          html += '<li month="' + i + '">';
-          html += MONTHS[i];
-          html += '</li>';
+          html.push('<li month="' + i + '">');
+          html.push(MONTHS[i]);
+          html.push('</li>');
       }
-      html += '</ul>';
-      return html;
+      html.push('</ul>');
+      return html.join('');
     }
     
     // build the day selector
     function buildDays() {
-      var html = '<div class="days selector" style="display:none">';
-      html += '<div class="header title">[title]</div><div class="header weekdays">';
+      var html = ['<div class="days selector" style="display:none">'];
+      html.push('<div class="header title">[title]</div><div class="header weekdays">');
       for (var i=0; i < WEEKDAYS.length; i++) {
-        html += '<span>';
-        html += WEEKDAYS[i];
-        html += '</span>';
+        html.push('<span>');
+        html.push(WEEKDAYS[i]);
+        html.push('</span>');
       }
       // div.body will be filled with buildCal() contents
-      html +=	'</div><div class="body">[calendar]</div></div>';
-      return html;
+      html.push('</div><div class="body">[calendar]</div></div>');
+      return html.join('');
     }
 
     // build the inner markup for the calendar
     function buildCal(y, m) {
-      var html = '<div class="wk">';
+      var html = ['<div class="wk">'];
       var days = daysInMonth(y, m);
       var pad = startOfMonth(y,m);
       for (var i=0; i < pad; i++) {
-        html += '<span></span> ';
+        html.push('<span></span> ');
       }
       for (var i=1; i <= days; i++) {
-        html += '<a href="#">' + i + '</a>';
+        html.push('<a href="#">')
+        html.push(i)
+        html.push('</a>');
         if ((pad + i) % 7 == 0) {
-          html += '</div><div class="wk">';
+          html.push('</div><div class="wk">');
         }
       }
-      html += '</div>';
-      return html;
+      html.push('</div>');
+      return html.join('');
     }
     
     function dateToString(date) {
@@ -214,6 +216,5 @@ jQuery.QuickDateSelect = {
       var arr = str.match(pattern);
       return (arr == null) ? new Date() : new Date(arr[3], arr[1]-1, arr[2]);
     }
-    
   }
 };
