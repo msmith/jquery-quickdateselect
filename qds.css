@@ -53,34 +53,34 @@ img.calendar_button {
 .chooser {
     color: #C0C0C0;
 }
-.years.selector {
+.years {
     background-color: #003366;
 }
-.years.selector .sel {
+.years .sel {
     background-color: #000044;
     -moz-border-radius: 6px 0px 0px 6px;
     -webkit-border-radius: 6px 0px 0px 6px;
 }
-.months.selector {
+.months {
     background-color: #000044;
 }
-.months.selector .sel {
+.months .sel {
     background-color: #6699CC;
     -moz-border-radius: 6px 0px 0px 6px;
     -webkit-border-radius: 6px 0px 0px 6px;
 }
-.days.selector {
+.days {
     background-color: #6699CC;
     -moz-border-radius: 0px 6px 6px 0px;
     -webkit-border-radius: 0px 6px 6px 0px;
 }
-.days.selector a {
+.days a {
     color: #003366;
 }
-.days.selector a:hover {
+.days a:hover {
     color: #C0C0C0;
     background-color: #003366;
 }
-.days.selector .header {
+.days .header {
     color: #000000;
 }
