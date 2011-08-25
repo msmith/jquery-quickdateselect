@@ -1,15 +1,17 @@
 jQuery QuickDateSelect
+===
 
 A quick date picker.
 
 
-=== The demo ===
+The demo
+---
 
 http://sticknet.net/jquery.qds/
 
 
-=== To use it ===
-
+To use it
+---
 Take your date field:
 
     <input id="date1" value="2/14/2009"></input>
@@ -25,6 +27,7 @@ Take your date field:
     <link rel="stylesheet" type="text/css" href="qds.css"></link>
 
 
-=== Credits ===
+Credits
+---
 
-256 pixels of icon provided by http://www.pinvoke.com/
+Calendar icon is Copyright &copy; [Yusuke Kamiyamane](http://p.yusukekamiyamane.com/). All rights reserved. Licensed under a [Creative Commons Attribution 3.0](http://creativecommons.org/licenses/by/3.0/) license
